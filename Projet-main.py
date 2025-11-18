@@ -2,36 +2,43 @@ from microbit import *
 import radio
 radio.config(channel = 1)
 radio.on()
-import time
 import music
 
+
+def mode_perdu():     # envoie un son sur le be:bi perdu
+    if button_a.was_pressed():  # envoi
+        radio.send('music')
+        
+    incoming = radio.receive()
+    if incoming == 'music':     # réception
+        music.play(music.BA_DING)
+                
+            
 def allumage_baby_parent():
-    while True:
-        message = radio.receive()
-        if pin_logo.is_touched():   # be:bi parent allumé
-            start = running_time()      
-            while pin_logo.is_touched():
-                if running_time() - start >= 3000:  
-                    display.show('P')
-                    break
+    message = radio.receive()
+    start = None
+    if pin_logo.is_touched():   # be:bi parent allumé
+        if start == None:
+            start = running_time()
+        elif running_time() - start >= 3000:
+            display.show('P')
             sleep(2000)
             radio.send('B')
             display.clear()
-        elif message:        #envoie vers le be:bi enfant
-            display.show(message)
-            sleep(2000)
-            display.clear()
-    
-allumage_baby_parent()       
-
-def mode_perdu():     # envoie un son sur le be:bi perdu
-    while button_a.is_pressed():
-        incomming = radio.receive()
-        radio.send('music')
-        if incomming:
-            if incomming == 'music':
-                music.play(music.BA_DING)
-                sleep(5000)
-                
-mode_perdu()
+            start = None
+        message = radio.receive()
+        
+    else:
+        start = None      
             
+    if message:        #envoie vers le be:bi enfant
+        display.show(message)
+        sleep(2000)
+        display.clear()
+        
+    return start
+
+
+while True:
+    mode_perdu()
+    allumage_baby_parent() 
