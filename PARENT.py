@@ -229,7 +229,7 @@ def main():
             start = running_time()
             while pin_logo.is_touched():
                 if running_time() - start >= 3000:
-                    Interrupteur = True #donc cest mode allumer
+                    interrupteur = True #donc cest mode allumer
                     display.show("ON")
                     break
             #donc ici cest une securite si apres un apppuie de pin logo, aucun role na etait attribue, ca permet deviter une erreur et de ressayer
@@ -296,3 +296,4 @@ def main():
             display.scroll("Erreur message")
             continue
            
+
