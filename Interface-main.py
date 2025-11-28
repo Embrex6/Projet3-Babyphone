@@ -70,17 +70,34 @@ def modifie_lait():
             if quantite_lait > 0:
                 quantite_lait -= 1
             display.scroll(str(quantite_lait))
+        sleep(50)
 
-        # Reset sur logo
-        if pin_logo.is_touched():
-            quantite_lait = 0
-            display.scroll('0')
+def mode_bu():
+    global quantite_lait
+
+    while True:
+        if retour_menu():
+            return
+
+        # a = montre la quantité de lait bu
+        if button_a.was_pressed():
+            display.scroll(str(quantite_lait))
+
+        # b = met a 0 le lait bu si maintenu 3 sec
+        if button_b.is_pressed():
+            start = running_time()
+            while button_b.is_pressed():
+                if running_time() - start >= 3000:
+                    quantite_lait = 0
+                    display.scroll("0")
+                    sleep(500)
+                    break
 
         sleep(50)
 
 #Liste des modes
 
-modes = ['MILK', 'PERDU', 'PERE']
+modes = ['MILK', 'PERDU', 'PERE' , 'BU']
 index = 0
 premier_affichage = True    
 
@@ -126,6 +143,10 @@ while True:
         elif modes[index] == 'PERE':
             display.scroll ('PERE')
             allumage_baby_parent()
+
+        elif modes[index] == 'BU':
+            display.scroll('BU')
+            mode_bu()
 
         premier_affichage = True
     
