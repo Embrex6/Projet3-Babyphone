@@ -1,9 +1,9 @@
 ##################################################################################################################
 #                                                                                                                #
-###!!! Ce code est la version à éxécuter puisque sans docstring, donc ne sature pas la mémoire du microbits !!!###
+###!!! Ce code est la version à éxécuter, puisque la docstring sature la mémoire du microbits !!!###
 #      Si vous voulez lire les docstring  veuillez jeter un coup d'oeil à l'autre version identique du code      #                                                                                    
 ##################################################################################################################
-#Le code a été surcommenté pour permettre de ne pas perdre le fil, lors de la longue lecture du code
+#Le code a été surcommenté pour permettre de ne pas perdre le fil, lors de la lecture du code
 
 ### IMPORTATION ###
 from microbit import *
